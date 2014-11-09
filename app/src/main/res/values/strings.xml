@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ufc Calendar</string>
+    <string name="title_activity_main">Ufr Calendar</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_agenda">Agenda</string>
+    <string name="pref_calendar_color_key" translatable="false">calendar_color</string>
+    <string name="pref_calendar_color_title">Calendar Color</string>
+    <string name="pref_calendar_color_summary">Indulge yourself</string>
+    <string name="action_refresh">Refresh Calendar</string>
+</resources>
