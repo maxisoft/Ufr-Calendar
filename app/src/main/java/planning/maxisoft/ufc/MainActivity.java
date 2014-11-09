@@ -77,6 +77,7 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
         }
         else if (id == R.id.action_refresh){
             swipeLayout.setRefreshing(true);
+            onRefresh();
         }
 
         return super.onOptionsItemSelected(item);

@@ -148,7 +148,7 @@ public class SettingFragment extends PreferenceFragment {
         // Add 'general' preferences.
         addPreferencesFromResource(R.xml.pref_general);
 
-        ColorPickerPreference preference = getColorPickerPreference();
+        ColorPickerPreference preference = createColorPickerPreference();
         getPreferenceScreen().addPreference(preference);
 
         // Add 'data and sync' preferences, and a corresponding header.
@@ -161,7 +161,7 @@ public class SettingFragment extends PreferenceFragment {
 
     }
 
-    private ColorPickerPreference getColorPickerPreference() {
+    private ColorPickerPreference createColorPickerPreference() {
         ColorPickerPreference colorPickerPreference = new ColorPickerPreference(getActivity());
         colorPickerPreference.setDefaultValue(Color.BLUE);
         colorPickerPreference.setTitle(R.string.pref_calendar_color_title);
