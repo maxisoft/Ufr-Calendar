@@ -64,21 +64,25 @@ public class CalendarHelper {
                 .build();
     }
 
-    private Uri createSyncAdapterUri() {
+    private Uri createCalendarSyncAdapterUri() {
         return asSyncAdapter(CalendarContract.Calendars.CONTENT_URI, CalendarHelper.class.getPackage().getName());
+    }
+
+    private Uri createEventSyncAdapterUri() {
+        return asSyncAdapter(CalendarContract.Events.CONTENT_URI, CalendarHelper.class.getPackage().getName());
     }
 
     private long createDefaultCalendar() {
         ContentValues values = new ContentValues();
         values.put(CalendarContract.Calendars.NAME, CALENDAR_NAME);
-        values.put(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME, R.string.calendar_display_name);
+        values.put(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME, getContext().getString(R.string.calendar_display_name));
         values.put(CalendarContract.Calendars.VISIBLE, 1);
         values.put(CalendarContract.Calendars.ACCOUNT_NAME, MainActivity.class.getPackage().getName());
         values.put(CalendarContract.Calendars.ACCOUNT_TYPE, CalendarContract.ACCOUNT_TYPE_LOCAL);
         values.put(CalendarContract.Calendars.OWNER_ACCOUNT, OWNER_ACCOUNT);
         values.put(CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL, CalendarContract.Calendars.CAL_ACCESS_OWNER);
         values.put(CalendarContract.Calendars.SYNC_EVENTS, 1);
-        Uri newCal = getContext().getContentResolver().insert(createSyncAdapterUri(), values);
+        Uri newCal = getContext().getContentResolver().insert(createCalendarSyncAdapterUri(), values);
         return Long.parseLong(newCal.getLastPathSegment());
     }
 
@@ -132,9 +136,9 @@ public class CalendarHelper {
         values.put(CalendarContract.Calendars.CALENDAR_TIME_ZONE, TimeZone.getDefault().getDisplayName());
         int color = getDefaultSharedPreferences().getInt(getContext().getString(R.string.pref_calendar_color_key), Color.BLUE);
         values.put(CalendarContract.Calendars.CALENDAR_COLOR, color);
-        values.put(CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL, CalendarContract.Calendars.CAL_ACCESS_READ);
+        values.put(CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL, CalendarContract.Calendars.CAL_ACCESS_OWNER);
         values.put(CalendarContract.Calendars.SYNC_EVENTS, 1);
-        getContext().getContentResolver().update(createSyncAdapterUri(),
+        getContext().getContentResolver().update(createCalendarSyncAdapterUri(),
                 values,
                 "(" + CalendarContract.Calendars._ID + " = ?)",
                 new String[]{String.valueOf(id)});
@@ -152,8 +156,10 @@ public class CalendarHelper {
     }
 
     private Future<InputStream> downloadAndSetCalendar() {
+        Log.w("test", getDefaultSharedPreferences().getString("calendar_url", null));
         lastDownloadTask = Ion.with(getContext())
                 .load(getDefaultSharedPreferences().getString("calendar_url", null))
+                .noCache()
                 .setTimeout(NETWORK_TIMEOUT)
                 .asInputStream()
                 .setCallback((e, result) -> {
@@ -185,7 +191,7 @@ public class CalendarHelper {
             values[i] = createEventContentValues(event);
             i += 1;
         }
-        getContext().getContentResolver().bulkInsert(createSyncAdapterUri(), values);
+        getContext().getContentResolver().bulkInsert(createEventSyncAdapterUri(), values);
     }
 
     private ContentValues createEventContentValues(VEvent event) {
@@ -202,9 +208,10 @@ public class CalendarHelper {
     }
 
     private void clearEvents() {
-        getContext().getContentResolver().delete(createSyncAdapterUri(),
+        getContext().getContentResolver().delete(createEventSyncAdapterUri(),
                 "(" + CalendarContract.Events.CALENDAR_ID + " = ?)",
                 new String[]{String.valueOf(getCalendarId())});
+
     }
 
     public void cancelTasks() {
