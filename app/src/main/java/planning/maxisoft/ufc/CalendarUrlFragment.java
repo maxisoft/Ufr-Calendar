@@ -36,7 +36,7 @@ public class CalendarUrlFragment extends Fragment {
         return url.trim().startsWith("https://sedna.univ-fcomte.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?data=");
     }
 
-    @OnClick(R.id.qr_code_img_view)
+    @OnClick(R.id.qr_code_layout)
     void getQrCode(){
         try {
             Intent intent = new Intent("com.google.zxing.client.android.SCAN");

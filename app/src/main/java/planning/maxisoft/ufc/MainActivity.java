@@ -135,7 +135,8 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
         if (key.equals("calendar_url")){
             CalendarHelper instance = CalendarHelper.getInstance(this);
             instance.cancelTasks();
-            calendarRefresh();
+            new Handler().postDelayed(this::calendarRefresh, 200);
+
         }
     }
 }

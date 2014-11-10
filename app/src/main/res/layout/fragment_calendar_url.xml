@@ -25,13 +25,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:layout_marginTop="22dp">
+                android:layout_marginTop="22dp"
+                android:id="@+id/qr_code_layout"
+                android:clickable="true">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Scan QR code"
+                    android:text="Press to scan QR code"
                     android:id="@+id/textView2"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
@@ -40,12 +42,10 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:id="@+id/qr_code_img_view"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/raw_qr7"
-                    android:layout_marginTop="65dp"
-                    android:clickable="true" />
+                    android:layout_marginTop="65dp" />
 
             </RelativeLayout>
 
