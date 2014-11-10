@@ -156,9 +156,13 @@ public class CalendarHelper {
     }
 
     private Future<InputStream> downloadAndSetCalendar() {
-        Log.w("test", getDefaultSharedPreferences().getString("calendar_url", null));
+        String calendarUrl = getDefaultSharedPreferences().getString("calendar_url", null);
+        Log.i(CalendarHelper.class.getSimpleName(), "trying to load url : " + calendarUrl);
+        if (calendarUrl == null){
+            return null;
+        }
         lastDownloadTask = Ion.with(getContext())
-                .load(getDefaultSharedPreferences().getString("calendar_url", null))
+                .load(calendarUrl)
                 .noCache()
                 .setTimeout(NETWORK_TIMEOUT)
                 .asInputStream()
