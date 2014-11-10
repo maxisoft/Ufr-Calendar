@@ -5,11 +5,13 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -36,7 +38,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 
-public class MainActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     @InjectView(R.id.swipe_container)
     SwipeRefreshLayout swipeLayout;
@@ -52,9 +54,15 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
                     .add(R.id.swipe_container, SettingFragment.newInstance())
                     .commit();
         }
+
         ButterKnife.inject(this);
 
         swipeLayout.setOnRefreshListener(this);
+        getDefaultSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+    }
+
+    private SharedPreferences getDefaultSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(this);
     }
 
 
@@ -76,14 +84,17 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
             startIntentCalendar();
         }
         else if (id == R.id.action_refresh){
-            if (!CalendarHelper.getInstance(this).isRunningTask()){
-                swipeLayout.setRefreshing(true);
-                onRefresh();
-            }
-
+            calendarRefresh();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void calendarRefresh() {
+        if (!CalendarHelper.getInstance(this).isRunningTask()){
+            swipeLayout.setRefreshing(true);
+            onRefresh();
+        }
     }
 
     private void startIntentCalendar() {
@@ -108,7 +119,6 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                Future lastTask = calendarHelper.getLastTask();
                 swipeLayout.setColorSchemeColors(future.isDone() ? Color.GREEN : Color.BLUE);
                 if (future.isDone() && !calendarHelper.isRunningTask()) {
                     swipeLayout.setRefreshing(false);
@@ -118,5 +128,14 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
                 }
             }
         });
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals("calendar_url")){
+            CalendarHelper instance = CalendarHelper.getInstance(this);
+            instance.cancelTasks();
+            calendarRefresh();
+        }
     }
 }

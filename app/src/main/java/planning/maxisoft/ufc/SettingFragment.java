@@ -1,5 +1,6 @@
 package planning.maxisoft.ufc;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -31,6 +32,7 @@ public class SettingFragment extends PreferenceFragment {
      * shown on tablets.
      */
     private static final boolean ALWAYS_SIMPLE_PREFS = false;
+    public static final int REQUEST_CODE = 0x685;
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -111,10 +113,39 @@ public class SettingFragment extends PreferenceFragment {
         setupSimplePreferencesScreen();
         Preference pref = findPreference("calendar_url");
         pref.setOnPreferenceClickListener(preference -> {
-            Intent intent = new Intent(getActivity(), CalendarUrlActivity.class);
-            startActivityForResult(intent, 0x685);
+            startActivityForPlanningUrl();
             return true;
         });
+        
+        //autostart activity if first time
+        if (getPreferenceManager().getSharedPreferences().getString("calendar_url", null) == null){
+            startActivityForPlanningUrl();
+        }
+    }
+
+    private void startActivityForPlanningUrl() {
+        Intent intent = new Intent(getActivity(), CalendarUrlActivity.class);
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE){
+            if (resultCode == Activity.RESULT_OK) {
+                if(data != null){
+                    String url = data.getStringExtra(CalendarUrlActivity.PLANNING_URL_DATA_KEY);
+                    if (url != null){
+                        getPreferenceManager().getSharedPreferences()
+                                .edit()
+                                .putString("calendar_url", url.trim())
+                                .commit();
+                    }
+                }
+            }else{
+                getActivity().finish();
+            }
+        }
     }
 
     /**

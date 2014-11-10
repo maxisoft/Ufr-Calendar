@@ -153,7 +153,7 @@ public class CalendarHelper {
 
     private Future<InputStream> downloadAndSetCalendar() {
         lastDownloadTask = Ion.with(getContext())
-                .load("https://sedna.univ-fcomte.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?data=8241fc38732002141e9729a804a2f84be0fa50826f0818af2370d544632bbb83906f45af276f59ae8fac93f781e861524e07c487e860b173d7c57dbfb39052a3c2973627c2eb073ba38388197b1a14238d3f4109b6629391")
+                .load(getDefaultSharedPreferences().getString("calendar_url", null))
                 .setTimeout(NETWORK_TIMEOUT)
                 .asInputStream()
                 .setCallback((e, result) -> {
