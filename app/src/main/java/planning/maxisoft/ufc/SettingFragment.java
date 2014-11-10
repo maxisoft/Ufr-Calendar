@@ -1,8 +1,10 @@
 package planning.maxisoft.ufc;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -15,6 +17,8 @@ import android.view.View;
 import com.github.machinarius.preferencefragment.PreferenceFragment;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
+
+import butterknife.InjectView;
 
 
 /**
@@ -108,6 +112,12 @@ public class SettingFragment extends PreferenceFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupSimplePreferencesScreen();
+        Preference pref = findPreference("calendar_url");
+        pref.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(getActivity(), CalendarUrl.class);
+            startActivityForResult(intent, 0x685);
+            return true;
+        });
     }
 
     /**
@@ -138,7 +148,7 @@ public class SettingFragment extends PreferenceFragment {
      * shown.
      */
     private void setupSimplePreferencesScreen() {
-        if (!isSimplePreferences(this.getActivity())) {
+        if (!isSimplePreferences(getActivity())) {
             return;
         }
 
@@ -152,7 +162,7 @@ public class SettingFragment extends PreferenceFragment {
         getPreferenceScreen().addPreference(preference);
 
         // Add 'data and sync' preferences, and a corresponding header.
-        PreferenceCategory fakeHeader = new PreferenceCategory(this.getActivity());
+        PreferenceCategory fakeHeader = new PreferenceCategory(getActivity());
         fakeHeader.setTitle(R.string.pref_header_data_sync);
         getPreferenceScreen().addPreference(fakeHeader);
         addPreferencesFromResource(R.xml.pref_data_sync);
