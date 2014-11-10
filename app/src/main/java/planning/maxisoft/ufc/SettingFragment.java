@@ -116,7 +116,7 @@ public class SettingFragment extends PreferenceFragment {
             startActivityForPlanningUrl();
             return true;
         });
-        
+
         //autostart activity if first time
         if (getPreferenceManager().getSharedPreferences().getString("calendar_url", null) == null){
             startActivityForPlanningUrl();
