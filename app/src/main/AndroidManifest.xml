@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="planning.maxisoft.ufc.CalendarUrl"
+            android:name=".CalendarUrlActivity"
             android:label="@string/title_activity_calendar_url"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName="planning.maxisoft.ufc.MainActivity" >

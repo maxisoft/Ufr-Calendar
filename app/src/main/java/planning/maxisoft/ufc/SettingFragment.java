@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -17,8 +16,6 @@ import android.view.View;
 import com.github.machinarius.preferencefragment.PreferenceFragment;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
-
-import butterknife.InjectView;
 
 
 /**
@@ -114,7 +111,7 @@ public class SettingFragment extends PreferenceFragment {
         setupSimplePreferencesScreen();
         Preference pref = findPreference("calendar_url");
         pref.setOnPreferenceClickListener(preference -> {
-            Intent intent = new Intent(getActivity(), CalendarUrl.class);
+            Intent intent = new Intent(getActivity(), CalendarUrlActivity.class);
             startActivityForResult(intent, 0x685);
             return true;
         });

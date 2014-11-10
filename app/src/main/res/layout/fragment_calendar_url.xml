@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="planning.maxisoft.ufc.CalendarUrl$PlaceholderFragment"
+    tools:context="planning.maxisoft.ufc.CalendarUrlActivity.CalendarUrlFragment"
     android:orientation="vertical"
     android:focusable="false"
     android:focusableInTouchMode="false">
@@ -12,7 +12,7 @@
         android:id="@+id/scrollView" >
 
         <LinearLayout
-            tools:context="planning.maxisoft.ufc.CalendarUrl$PlaceholderFragment"
+            tools:context="planning.maxisoft.ufc.CalendarUrlActivity.CalendarUrlFragment"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"

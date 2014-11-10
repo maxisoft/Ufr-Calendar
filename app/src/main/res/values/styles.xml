@@ -4,6 +4,9 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#64B5F6</item>
+        <item name="colorControlNormal">#ff8193c5</item>
+        <item name="colorControlActivated">#ff466bc5</item>
+        <item name="colorControlHighlight">#ff1047c5</item>
     </style>
 
 </resources>

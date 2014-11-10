@@ -12,5 +12,6 @@
     <string name="calendar_display_name">ufr planning</string>
     <string name="title_activity_calendar_url">CalendarUrl</string>
     <string name="hello_world">Hello world!</string>
+    <string name="ok_settings">ok</string>
 
 </resources>
