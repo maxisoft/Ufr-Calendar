@@ -33,7 +33,7 @@ public class Alarm extends BroadcastReceiver {
         if (!instance.isRunningTask()){
             instance.downloadCalendar();
         }
-        Log.w(Alarm.class.getSimpleName(), "Received event");
+        Log.w(Alarm.class.getSimpleName(), "Received and handled event");
     }
 
     public void SetAlarm() {
