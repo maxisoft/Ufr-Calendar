@@ -33,7 +33,7 @@ android {
     }
     buildTypes {
         release {
-            runProguard false
+            runProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -63,5 +63,4 @@ dependencies {
     compile 'com.jakewharton:butterknife:6.0.0'
     compile 'com.github.machinarius:preferencefragment:0.1.2'
     compile 'com.robbypond:android-ColorPickerPreference:1.11'
-    compile 'com.github.castorflex.smoothprogressbar:library:1.0.0'
 }
