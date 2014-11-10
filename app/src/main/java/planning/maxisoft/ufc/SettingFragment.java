@@ -25,13 +25,6 @@ import net.margaritov.preference.colorpicker.ColorPickerPreference;
  * create an instance of this fragment.
  */
 public class SettingFragment extends PreferenceFragment {
-    /**
-     * Determines whether to always show the simplified settings UI, where
-     * settings are presented in a single list. When false, settings are shown
-     * as a master/detail two-pane view on tablets. When true, a single pane is
-     * shown on tablets.
-     */
-    private static final boolean ALWAYS_SIMPLE_PREFS = false;
     public static final int REQUEST_CODE = 0x685;
 
     /**
@@ -153,36 +146,11 @@ public class SettingFragment extends PreferenceFragment {
     }
 
     /**
-     * Determines whether the simplified settings UI should be shown. This is
-     * true if this is forced via {@link #ALWAYS_SIMPLE_PREFS}, or the device
-     * doesn't have newer APIs like {@link android.preference.PreferenceFragment}, or the device
-     * doesn't have an extra-large screen. In these cases, a single-pane
-     * "simplified" settings UI should be shown.
-     */
-    private static boolean isSimplePreferences(Context context) {
-        return ALWAYS_SIMPLE_PREFS
-                || Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
-                || !isXLargeTablet(context);
-    }
-
-    /**
-     * Helper method to determine if the device has an extra-large screen. For
-     * example, 10" tablets are extra-large.
-     */
-    private static boolean isXLargeTablet(Context context) {
-        return (context.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_XLARGE;
-    }
-
-    /**
      * Shows the simplified settings UI if the device configuration if the
      * device configuration dictates that a simplified, single-pane UI should be
      * shown.
      */
     private void setupSimplePreferencesScreen() {
-        if (!isSimplePreferences(getActivity())) {
-            return;
-        }
 
         // In the simplified UI, fragments are not used at all and we instead
         // use the older PreferenceActivity APIs.
@@ -210,7 +178,7 @@ public class SettingFragment extends PreferenceFragment {
         colorPickerPreference.setKey(getString(R.string.pref_calendar_color_key));
         colorPickerPreference.setSummary(R.string.pref_calendar_color_summary);
         colorPickerPreference.setOnPreferenceChangeListener((preference, newValue) -> {
-            CalendarHelper.getInstance(getActivity()).updateCalendar();
+            CalendarHelper.getInstance().updateCalendar();
             return false;
         });
         return colorPickerPreference;

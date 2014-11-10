@@ -91,7 +91,7 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
     }
 
     private void calendarRefresh() {
-        if (!CalendarHelper.getInstance(this).isRunningTask()){
+        if (!CalendarHelper.getInstance().isRunningTask()){
             swipeLayout.setRefreshing(true);
             onRefresh();
         }
@@ -109,12 +109,12 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        CalendarHelper.getInstance(this).cancelTasks();
+        CalendarHelper.getInstance().cancelTasks();
     }
 
     @Override
     public void onRefresh() {
-        CalendarHelper calendarHelper = CalendarHelper.getInstance(this);
+        CalendarHelper calendarHelper = CalendarHelper.getInstance();
         Future future = calendarHelper.downloadCalendar();
         new Handler().post(new Runnable() {
             @Override
@@ -133,10 +133,11 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals("calendar_url")){
-            CalendarHelper instance = CalendarHelper.getInstance(this);
+            CalendarHelper instance = CalendarHelper.getInstance();
             instance.cancelTasks();
             new Handler().postDelayed(this::calendarRefresh, 200);
-
+        }else if (key.equals("sync_frequency")){
+            ((MainApplication)getApplication()).getAlarm().resetAlarm();
         }
     }
 }

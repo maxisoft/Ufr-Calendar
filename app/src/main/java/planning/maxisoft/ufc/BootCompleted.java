@@ -6,11 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 
 public class BootCompleted extends BroadcastReceiver {
+    private Alarm alarm = new Alarm();
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equalsIgnoreCase(Intent.ACTION_BOOT_COMPLETED)) {
-            Intent itent = new Intent(context, UpdatePlanningService.class);
-            context.startService(itent);
+        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+            MainApplication.getInstance().getAlarm().SetAlarm();
         }
     }
 }

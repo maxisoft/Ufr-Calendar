@@ -34,24 +34,24 @@ public class CalendarHelper {
     public static final String CALENDAR_NAME = "maxisoft_ufc_planning";
     public static final String OWNER_ACCOUNT = "ufc planning";
     public static final int NETWORK_TIMEOUT = (int) TimeUnit.MILLISECONDS.convert(15, TimeUnit.SECONDS);
-    private static final Map<Context, CalendarHelper> instances = new WeakHashMap<>();
+    private static CalendarHelper instance;
 
     private final WeakReference<Context> context;
     private long calendarId = -1;
     private volatile Future<InputStream> lastDownloadTask;
     private volatile Future lastTask;
     private ExecutorService executor;
-
+    private CalendarHelper(){
+        this(MainApplication.getInstance());
+    }
     private CalendarHelper(Context context) {
         this.context = new WeakReference<>(context);
         executor = Executors.newSingleThreadExecutor();
     }
 
-    public static synchronized CalendarHelper getInstance(@NonNull Context context) {
-        CalendarHelper instance = instances.get(context);
+    public static synchronized CalendarHelper getInstance() {
         if (instance == null) {
-            instance = new CalendarHelper(context);
-            instances.put(context, instance);
+            instance = new CalendarHelper();
         }
         return instance;
     }
@@ -122,7 +122,7 @@ public class CalendarHelper {
     }
 
     public boolean cancelLastDownload() {
-        return lastDownloadTask != null && lastDownloadTask.cancel(true);
+        return lastDownloadTask != null && lastDownloadTask.cancel(false);
     }
 
     public synchronized void updateCalendar() {
@@ -217,7 +217,7 @@ public class CalendarHelper {
     public void cancelTasks() {
         cancelLastDownload();
         if (lastTask != null) {
-            lastTask.cancel(true);
+            lastTask.cancel(false);
         }
     }
 
