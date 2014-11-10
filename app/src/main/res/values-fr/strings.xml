@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Ufc planning</string>
     <string name="action_settings">Paramètres</string>
-    <string name="action_agenda">lancer l'agenda</string>
+    <string name="action_agenda">lancer l\'agenda</string>
     <string name="title_activity_main">Calendrier Ufc</string>
     <string name="pref_calendar_color_title">Couleur du calendrier</string>
     <string name="pref_calendar_color_summary">Faite vous plaisir</string>
