@@ -64,8 +64,7 @@ public class CalendarHelper {
     }
 
     private Uri createSyncAdapterUri() {
-        return asSyncAdapter(CalendarContract.Calendars.CONTENT_URI,
-                CalendarHelper.class.getPackage().getName());
+        return asSyncAdapter(CalendarContract.Calendars.CONTENT_URI, CalendarHelper.class.getPackage().getName());
     }
 
     private long createDefaultCalendar() {
@@ -103,10 +102,18 @@ public class CalendarHelper {
 
     public Future downloadCalendar() {
         cancelLastDownload();
-        if (lastTask == null || lastTask.isDone()) {
+        if (!isLastTaskRunning()) {
             return downloadAndSetCalendar();
         }
         return lastTask;
+    }
+
+    public boolean isLastTaskRunning() {
+        return lastTask != null && !lastTask.isDone();
+    }
+
+    public boolean isLastDownloadRunning() {
+        return lastDownloadTask != null && !lastDownloadTask.isDone();
     }
 
     public boolean cancelLastDownload() {
@@ -204,6 +211,10 @@ public class CalendarHelper {
         if (lastTask != null) {
             lastTask.cancel(true);
         }
+    }
+
+    public boolean isRunningTask(){
+        return isLastDownloadRunning() || isLastTaskRunning();
     }
 
     private Context getContext() {

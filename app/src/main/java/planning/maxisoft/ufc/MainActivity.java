@@ -76,8 +76,11 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
             startIntentCalendar();
         }
         else if (id == R.id.action_refresh){
-            swipeLayout.setRefreshing(true);
-            onRefresh();
+            if (!CalendarHelper.getInstance(this).isRunningTask()){
+                swipeLayout.setRefreshing(true);
+                onRefresh();
+            }
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -107,7 +110,7 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
             public void run() {
                 Future lastTask = calendarHelper.getLastTask();
                 swipeLayout.setColorSchemeColors(future.isDone() ? Color.GREEN : Color.BLUE);
-                if (future.isDone() && lastTask != null && lastTask.isDone()) {
+                if (future.isDone() && !calendarHelper.isRunningTask()) {
                     swipeLayout.setRefreshing(false);
                     swipeLayout.setColorSchemeColors(Color.BLACK);
                 } else {
