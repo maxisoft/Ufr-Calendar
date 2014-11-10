@@ -2,15 +2,19 @@
 <resources>
 
     <string name="app_name">Ufc Calendar</string>
-    <string name="title_activity_main">Ufr Calendar</string>
+    <string name="title_activity_main">Ufc Calendar</string>
     <string name="action_settings">Settings</string>
-    <string name="action_agenda">Agenda</string>
+    <string name="action_agenda">agenda</string>
     <string name="pref_calendar_color_key" translatable="false">calendar_color</string>
     <string name="pref_calendar_color_title">Calendar Color</string>
     <string name="pref_calendar_color_summary">Indulge yourself</string>
-    <string name="action_refresh">Refresh Calendar</string>
-    <string name="calendar_display_name">ufr planning</string>
+    <string name="action_refresh">refresh calendar</string>
+    <string name="calendar_display_name">ufc planning</string>
     <string name="title_activity_calendar_url">Setup Calendar URL</string>
     <string name="ok_settings" translatable="false">OK</string>
+    <string name="pref_title_calendar_url">Calendar URL</string>
+    <string name="fragment_calendar_url_scan_qr_code_textview">Press to scan QR code</string>
+    <string name="fragment_calendar_url_or_textview">Or</string>
+    <string name="fragment_calendar_url_enter_url_textview">Enter Url :</string>
 
 </resources>

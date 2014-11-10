@@ -2,11 +2,15 @@
 <resources>
     <string name="app_name">Ufc planning</string>
     <string name="action_settings">Paramètres</string>
-    <string name="action_agenda">Agenda</string>
-    <string name="title_activity_main">Calendrier Ufr</string>
+    <string name="action_agenda">lancer l'agenda</string>
+    <string name="title_activity_main">Calendrier Ufc</string>
     <string name="pref_calendar_color_title">Couleur du calendrier</string>
     <string name="pref_calendar_color_summary">Faite vous plaisir</string>
-    <string name="action_refresh">Rafraichir le calendrier</string>
-    <string name="calendar_display_name">planning ufr</string>
+    <string name="action_refresh">rafraichir le calendrier</string>
+    <string name="calendar_display_name">planning ufc</string>
     <string name="title_activity_calendar_url">Configurer l\'url du calendrier</string>
+    <string name="pref_title_calendar_url">Url du calendrier</string>
+    <string name="fragment_calendar_url_enter_url_textview">Entrer l\'url</string>
+    <string name="fragment_calendar_url_or_textview">Ou</string>
+    <string name="fragment_calendar_url_scan_qr_code_textview">Appuyer pour lire le QR code</string>
 </resources>
