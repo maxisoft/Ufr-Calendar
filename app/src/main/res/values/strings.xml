@@ -10,8 +10,7 @@
     <string name="pref_calendar_color_summary">Indulge yourself</string>
     <string name="action_refresh">Refresh Calendar</string>
     <string name="calendar_display_name">ufr planning</string>
-    <string name="title_activity_calendar_url">CalendarUrl</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="ok_settings">ok</string>
+    <string name="title_activity_calendar_url">Setup Calendar URL</string>
+    <string name="ok_settings" translatable="false">OK</string>
 
 </resources>

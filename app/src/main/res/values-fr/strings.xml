@@ -8,4 +8,5 @@
     <string name="pref_calendar_color_summary">Faite vous plaisir</string>
     <string name="action_refresh">Rafraichir le calendrier</string>
     <string name="calendar_display_name">planning ufr</string>
+    <string name="title_activity_calendar_url">Configurer l\'url du calendrier</string>
 </resources>
