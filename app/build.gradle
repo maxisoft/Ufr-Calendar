@@ -18,26 +18,18 @@ apply plugin: 'retrolambda'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    buildToolsVersion "21.1.2"
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     defaultConfig {
         applicationId "planning.maxisoft.ufc"
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 2
-        versionName "2.0"
+        versionName "2.1"
     }
-    buildTypes {
-        release {
-            runProguard true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
     packagingOptions {
         // workaround for http://stackoverflow.com/questions/20673625/android-gradle-plugin-0-7-0-duplicate-files-during-packaging-of-apk
         exclude 'META-INF/DEPENDENCIES.txt'
@@ -52,12 +44,17 @@ android {
         exclude 'META-INF/LGPL2.1'
         exclude 'META-INF/ASL2.0'
     }
+    buildTypes {
+        release {
+            minifyEnabled true
+        }
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:21.0.0'
-    compile 'com.android.support:appcompat-v7:21.0.0'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'org.mnode.ical4j:ical4j:1.0.6'
     compile 'com.koushikdutta.ion:ion:1.4.0'
     compile 'com.jakewharton:butterknife:6.0.0'
