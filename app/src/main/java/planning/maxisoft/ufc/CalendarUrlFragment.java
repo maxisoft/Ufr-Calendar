@@ -33,7 +33,8 @@ public class CalendarUrlFragment extends Fragment {
     EditText urlEditText;
 
     public static boolean isValidPlanningUrl(String url){
-        return url.trim().startsWith("https://sedna.univ-fcomte.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?data=");
+        return url.trim().startsWith("https://sedna.univ-fcomte.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?data=") ||
+                url.trim().startsWith("https://sedna.univ-fcomte.fr/jsp/custom/ufc/cal.jsp?data=");
     }
 
     @OnClick(R.id.qr_code_layout)
